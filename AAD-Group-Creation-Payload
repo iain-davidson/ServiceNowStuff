@@ -1,0 +1,37 @@
+(function(parent, child) {
+    var incs = new GitPayloadUtil();
+    var sTargetGroups = parent.variables.aad_groups_values + '';
+
+    var sOwner       = parent.variables.workload_owner.user_name + '';
+    var sWorkLoad    = parent.variables.u_workload_name + '';
+    var sEnvironment = parent.variables.u_environment + '';
+
+    var sRitmSysid = parent.sys_id + '';
+    var sQueryString = 'request_item=' + sRitmSysid + '^<something to find your task ...>';
+    var sTaskSysid   = incs.taskLookup(sQueryString);
+    var sReplyUriAPI = 'https://' + gs.getProperty('instance_name') + '.service-now.com/api/now/v2/table/sc_task/' + sTaskSysid;
+    var sRitmNumber = parent.number + '';
+
+    var jPayload = {
+        "environment" : sEnvironment,
+        "workload"    : sWorkLoad,
+        "reply-uri"   : sReplyUriAPI,
+        "sctask-id"   : sTaskSysid,
+        "ritm"        : sRitmNumber,
+        "ritm-sysid"  : sRitmSysid
+    };
+
+    var aTargetGroups = sTargetGroups.split('\n');
+    for ( var i = 0; i < aTargetGroups.length; i++ ) {
+        var sMembers   = '';
+        var sGroupName = (aTargetGroups[i]).trim();
+
+        if ( sGroupName.indexOf('<filter string>') > 0 ) {
+            sMembers = parent.variables["<variable name>"] + '';
+        }
+        var aMembers = sMembers.replaceAll(' ', ',').replaceAll(',', ';').split(';');
+
+        jPayload[sGroupName] = {"members":[aMembers],"owners":[sOwner]};
+    }
+    answer = JSON.stringify(jPayload);
+})(parent, child);
