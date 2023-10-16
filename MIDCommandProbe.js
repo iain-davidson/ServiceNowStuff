@@ -12,7 +12,7 @@ MIDCommandProbe.prototype = {
     /**SNDOC
       @name postMIDCommandProbe
       @example
-	   //*command     : defaults to dir
+       //*command     : defaults to dir
        //*mid_server  : name of the mid server to address
        //*ecc         : {"name":name of the ecc record,"source": name of the ecc source}
        // probe       : {"id":defaults to '',"name":defaults to '':
@@ -80,10 +80,10 @@ MIDCommandProbe.prototype = {
     },
 
     /**SNDOC
-	  @name _buildMIDPayload
-	  @private
-	 */
-	_buildMIDPayload : function(inCommand, inProbeId, inProbeName) {
+      @name _buildMIDPayload
+      @private
+     */
+    _buildMIDPayload : function(inCommand, inProbeId, inProbeName) {
         var elName, elProbeId, elProbeName, elDiscovery, elSensor;
 
         var xmldoc = new XMLDocument("<parameters/>");
@@ -106,10 +106,10 @@ MIDCommandProbe.prototype = {
     },
 
     /**SNDOC
-	  @name _getMIDResponse
-	  @private
-	 */
-	_getMIDResponse : function(inSysID, inMaxTime) {
+      @name _getMIDResponse
+      @private
+     */
+    _getMIDResponse : function(inSysID, inMaxTime) {
         var nCounter = 0, bComplete = false, oOutput = {};
 
         var glider = new GlideRecord('ecc_queue');
@@ -142,10 +142,10 @@ MIDCommandProbe.prototype = {
     },
 
     /**SNDOC
-	  @name _getMIDECCPayload
-	  @private
-	 */
-	_getMIDECCPayload : function(inEccRecord) {
+      @name _getMIDECCPayload
+      @private
+     */
+    _getMIDECCPayload : function(inEccRecord) {
         var payload;
         if ( inEccRecord.payload != '<see_attachment/>' ) {
             this._logMessage('_getMIDECCPayload', 'Reading payload content');
@@ -160,10 +160,10 @@ MIDCommandProbe.prototype = {
     },
 
     /**SNDOC
-	  @name _getXMLValue
-	  @private
-	 */
-	_getXMLValue : function(inXMLDoc, inPath) {
+      @name _getXMLValue
+      @private
+     */
+    _getXMLValue : function(inXMLDoc, inPath) {
         this._logMessage('_getXMLValue', 'XML Document : ' + inXMLDoc);
         this._logMessage('_getXMLValue', 'Query Path   : ' + inPath);
         var output = inXMLDoc.getNodeText(inPath);
@@ -172,10 +172,10 @@ MIDCommandProbe.prototype = {
     },
 
     /**SNDOC
-	  @name _logMessage
-	  @private
-	 */
-	_logMessage : function(inFunction, inMessage) {
+      @name _logMessage
+      @private
+     */
+    _logMessage : function(inFunction, inMessage) {
         if ( this.bDebug == 'true' ) {
             this.aDebug.push('[' + Date.now() + '][' + inFunction + '] : ' + inMessage);
         }
