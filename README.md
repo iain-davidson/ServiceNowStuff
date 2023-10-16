@@ -1,1 +1,3 @@
-# ServiceNowStuff
+# ServiceNow Stuff
+
+A small collectiog of usefull scripts and stuff, so I don't forget...
